@@ -35,6 +35,7 @@ RUN  set -e \
       && apt-get -y install --no-install-recommends --no-install-suggests \
         libgdal-dev libgeos-dev libproj-dev libudunits2-dev \
 		libcairo2-dev build-essential gcc gfortran libopenblas-dev \
+		protobuf-dev libv8-dev \
       && apt-get -y autoremove \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
@@ -61,7 +62,7 @@ RUN set -e \
 
 RUN set -e \
 	  && Rscript -e "install.packages('pacman')" \
-	  && Rscript -e "install.packages(c('sf', 'sp', 'spdep', 'raster', 'gstat', 'automap', 'tmap', 'dplyr', 'plyr', 'tidyr', 'magrittr', 'lubridate', 'xtable', 'tidyverse', 'mice', 'caret', 'caretEnsemble', 'rjags', 'spBayes'), Ncpus = 8, dependencies = TRUE, INSTALL_opts = c('--no-lock')" 
+	  && Rscript -e "install.packages(c('sf', 'sp', 'spdep', 'raster', 'gstat', 'automap', 'tmap', 'dplyr', 'plyr', 'tidyr', 'magrittr', 'lubridate', 'xtable', 'tidyverse', 'mice', 'caret', 'caretEnsemble', 'rjags', 'spBayes', 'stars', 'doParallel', 'foreach', 'doSNOW'), Ncpus = 8, dependencies = TRUE, INSTALL_opts = c('--no-lock'))" 
 
 EXPOSE 8787
 
