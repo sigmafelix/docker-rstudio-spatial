@@ -1,4 +1,4 @@
-FROM ubuntu:19.04
+FROM ubuntu:20.04
 
 MAINTAINER Felix Song sigmafelix@hotmail.com
 
@@ -17,7 +17,7 @@ RUN set -e \
       && apt-get -y update \
       && apt-get -y install --no-install-recommends --no-install-suggests \
         apt-transport-https apt-utils ca-certificates gnupg \
-      && echo "deb https://cloud.r-project.org/bin/linux/ubuntu disco-cran35/" \
+      && echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran35/" \
         > /etc/apt/sources.list.d/r.list \
       && apt-key adv --keyserver keyserver.ubuntu.com \
         --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
@@ -33,7 +33,7 @@ RUN set -e \
 RUN  set -e \
       && apt-get -y update \
       && apt-get -y install --no-install-recommends --no-install-suggests \
-        libgdal-dev libgeos-dev libproj-dev libudunits2-dev \
+        libgdal-dev libgeos-dev libproj-dev libudunits2-dev libspatialindex-dev\
 		libcairo2-dev build-essential gcc gfortran libopenblas-dev \
 		protobuf-dev libv8-dev \
       && apt-get -y autoremove \
@@ -64,7 +64,7 @@ RUN set -e \
 	  && Rscript -e "install.packages('pacman')" \
 	  && Rscript -e "install.packages(c('sf', 'sp', 'spdep', 'raster', 'gstat', 'automap', 'tmap', 'dplyr', 'plyr', 'tidyr', 'magrittr', 'lubridate', 'xtable', 'tidyverse', 'mice', 'caret', 'caretEnsemble', 'rjags', 'spBayes', 'stars', 'doParallel', 'foreach', 'doSNOW'), Ncpus = 8, dependencies = TRUE, INSTALL_opts = c('--no-lock'))" 
 
-EXPOSE 8787
+EXPOSE 8788
 
 ENTRYPOINT ["/usr/lib/rstudio-server/bin/rserver"]
 CMD ["--server-daemonize=0", "--server-app-armor-enabled=0"]
